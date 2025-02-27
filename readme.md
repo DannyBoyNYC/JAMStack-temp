@@ -1,8 +1,8 @@
 # The JAMStack, AJAX and Static Site Generation
 
-## Homework
+<!-- ## Homework
 
-- create your own New York Times developer account and use it to customize your Ajax page
+- create your own New York Times developer account and use it to customize your Ajax page -->
 
 ## Reading
 
@@ -13,7 +13,7 @@
 
 - [11ty](https://www.11ty.dev/)
 - [11ty Rocks](https://11ty.rocks)
-- Andy Bell's [11ty](https://piccalil.li/course/learn-eleventy-from-scratch/) course.
+- an extensive [11ty](https://learn-eleventy.pages.dev) course
 
 ## Goals
 
@@ -30,7 +30,7 @@
 
 A "stack" is a collection of software used to solve a common problem. In web development common stacks include MEAN (MongoDB, ExpressJS, Angular and Node), MERN (MongoDB, ExpressJS, React and Node) and LAMP (Linux, Apache, MySQL, and PHP).
 
-The [JAMstack](https://jamstack.org/what-is-jamstack/) is an architecture that uses a build process to create web pages and sites that are deployed to a content delivery network.
+The [JAMstack](https://jamstack.org) is an architecture that uses a build process to create web pages and sites that are deployed to a content delivery network.
 
 Recall the [design patterns](https://github.com/front-end-foundations/FlexNav#aside---design-patterns) we examined previously. JAMstack sites are the simplest and most traditional - static HTML pages - but they way they are created is thoroughly modern.
 
@@ -38,15 +38,15 @@ Recall the [design patterns](https://github.com/front-end-foundations/FlexNav#as
 
 As we just learned, JAMstack sites use pre-rendering tools that use a build process to create the multiple pages that comprise a web site.
 
-[Eleventy](https://www.11ty.io/) (aka 11ty) is a simple [static site generator](https://jamstack.org/generators/) (SSG). Statically generated websites are very popular due to their simplicity, superior speed, SEO and security.
+[Eleventy](https://www.11ty.io/) (aka 11ty) is a simple [static site generator](https://jamstack.org/generators/) (SSG). SSG websites are very popular due to their simplicity, superior speed, SEO and security.
 
 The benefits of 11ty over other completing generators include the fact that it is written in JavaScript (Node) and its simplicity. 
 
 ### Initial Setup
 
-Today we're are building a simple multipage [static website](https://zealous-kilby-113356.netlify.com) with an [ajax connection](https://zealous-kilby-113356.netlify.com/posts/ajax/) that fetches articles from the New York Times.
+<!-- Today we're are building a simple multipage [static website](https://zealous-kilby-113356.netlify.com) with an [ajax connection](https://zealous-kilby-113356.netlify.com/posts/ajax/) that fetches articles from the New York Times. -->
 
-Create a `.gitignore` file at the top level targeting the node_modules folder:
+Note the `.gitignore` file at the top level targeting the node_modules folder:
 
 ```sh
 node_modules
@@ -65,8 +65,6 @@ Add a script to `package.json`:
 },
 ```
 
-Note: since 11ty renders Markdown files we need to either delete the readme.md file in this repo or create an `.eleventyignore` file with the contents `readme.md`. Here's the [documentation](https://www.11ty.dev/docs/ignores/) for Eleventy ignore files.
-
 Note the `.prettierignore`:
 
 ```
@@ -77,6 +75,8 @@ coverage
 # Ignore all readme files:
 readme.md
 ```
+
+Since 11ty converts Markdown files to HTML we need to either delete the readme.md file in this repo or create an `.eleventyignore` file with the contents `readme.md`. Here's the [documentation](https://www.11ty.dev/docs/ignores/) for Eleventy ignore files.
 
 ### Eleventy Configuration
 
@@ -116,9 +116,16 @@ Note:
 - the generated `_site` folder
 - the folders specified in our config are copied into `_site`
 
+Add the `_site` folder to the `.gitignore` file:
+
+```txt
+node_modules
+_site
+```
+
 ### Markdown
 
-Create `src/index.md` on the top level with the following structure:
+Create `src/index.md` on the top level with the following text:
 
 ```md
 ## Articles
@@ -253,7 +260,7 @@ Note:
 Create a navbar in `layout.html`:
 
 ```html
-<nav aria-label="Primary navigaton">
+<nav>
   <ul>
     {% for page in collections.page %}
     <li>{{ page.data.navTitle }}</li>
@@ -316,12 +323,10 @@ And `pictures.md`:
 ---
 pageTitle: Apples
 navTitle: Pictures
-singleImage: /img/apples.png
+
 ---
 
-![alt info goes here]( {{ singleImage }} )
-
-[Home](/)
+![alt info goes here](/img/apples.png)
 ```
 
 Link it to the template, add a tag and multiple images:
@@ -338,6 +343,8 @@ images:
   - apples-red.png
   - apples-group.png
 ---
+
+![alt info goes here]( {{ singleImage }} )
 ```
 
 Examine the image options:
@@ -374,8 +381,6 @@ images:
 {% for filename in images %}
 <img src="/img/{{ filename }}" alt="A nice picture of apples." />
 {% endfor %}
-
-[Home](/)
 ```
 
 Note the use of HTML in the Markdown file.
@@ -388,6 +393,42 @@ Add the following to the `pictures.md` front matter:
 
 ```txt
 pageClass: pictures
+```
+
+```html
+<body class="p-{{ pageClass }}">
+    <nav>
+      <ul>
+        {% for page in collections.page %}
+        <li class="t-{{page.data.pageClass}}">
+          <a href="{{ page.url | url }}">{{ page.data.navTitle }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+```
+
+```css
+nav ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+nav ul a {
+  padding: 0.5rem 1rem;
+}
+
+nav a:hover,
+.p-home .t-home a,
+.p-about .t-about a,
+.p-pictures .t-pictures a,
+.p-contact .t-contact a {
+  background-color: #007eb6;
+  color: #fff;
+  border-radius: 4px;
+}
 ```
 
 Add the following to the template's body tag:
@@ -442,7 +483,7 @@ navTitle: Contact
 ---
 ```
 
-YAML front matter tags can be written
+Tags can be written
 
 `tags: page` or
 
@@ -496,6 +537,8 @@ Create `pages/pages.json`:
 }
 ```
 
+Note: it might be necessary to restart 11ty.
+
 Any document in the pages folder will inherit these properties. We can now remove the `tags` and `layout` metadata from all files in the pages directory.
 
 E.g.: `pages/about.md`:
@@ -504,17 +547,17 @@ E.g.: `pages/about.md`:
 ---
 pageTitle: About Us
 navTitle: About
+pageClass: about
 ---
 
 ## We are
 
-- a group of commited New Yorkers
+- a group of commited citizens
 - a caring community
 - a force in national politics
 
 We are New Yorkers.
 
-[Home](/)
 ```
 
 Perform the same deletions on all files in `pages`.
@@ -534,7 +577,6 @@ navTitle: Home
 ## Articles
 
 {% for page in collections.page %}
-
   <h2><a href="{{ page.url }}">{{ page.data.pageTitle }}</a></h2>
   <em>{{ page.date | date: "%Y-%m-%d" }}</em>
 {% endfor %}
@@ -571,6 +613,7 @@ Edit `index.md` in VS Code:
 ---
 layout: layout.html
 pageTitle: New York Today
+pageClass: home
 ---
 
 ## Articles
@@ -606,22 +649,41 @@ Open a console in the browser.
 
 A promise:
 
-```sh
-> fetch('https://jsonplaceholder.typicode.com/posts')
+```js
+fetch('https://jsonplaceholder.typicode.com/posts')
 ```
 
 A resolved promise using `.then`:
 
-```sh
-> fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.json())
+<!-- ```js
+fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.json())
+``` -->
+
+```js
+fetch('https://jsonplaceholder.typicode.com/posts')
+.then(function(response){
+  return response.json()
+})
 ```
 
 Since the promise is resolved you can see the actual data in the console. It returns an array of 100 fake posts which we can console.log:
 
-```sh
+<!-- ```sh
 fetch('https://jsonplaceholder.typicode.com/posts/')
   .then(response => response.json())
   .then(data => console.log(data))
+``` -->
+
+```js
+fetch('https://jsonplaceholder.typicode.com/posts')
+.then(
+  function(response){
+  return response.json()
+})
+.then(
+  function(data){
+  console.log(data)
+});
 ```
 
 ```sh
