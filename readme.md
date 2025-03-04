@@ -27,6 +27,7 @@
   - [Array Methods](#array-methods)
   - [New York Times API](#new-york-times-api)
     - [Looping](#looping)
+  - [Local JSON Server](#local-json-server)
     - [Second Deploy](#second-deploy)
   - [Notes](#notes)
 
@@ -967,12 +968,6 @@ function showData(data) {
 
 [Array Methods Notes](https://github.com/front-end-intermediate/1-DOM-scripting/tree/main?tab=readme-ov-file#array-methods) 
 
-<!-- ## Local JSON Server
-
-Use the db directory to start a server.
-
-Create a form to create a new employee. -->
-
 ## New York Times API
 
 Let's use the New York Times [developers](https://developer.nytimes.com/) site for our data.
@@ -1205,6 +1200,16 @@ if (document.querySelector(".home")) {
   getStories();
 }
 ```
+
+## Local JSON Server
+
+`cd` into the `db` folder in a separate terminal. 
+
+Run `$ npm install`
+
+Examine the `package.json` file.
+
+Use `$ npm run start` the db directory to start a server.
 
 
 ### Second Deploy
