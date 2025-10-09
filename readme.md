@@ -99,7 +99,7 @@ Add a script to `package.json`:
 },
 ```
 
-Since 11ty converts Markdown files to HTML we need to either delete the readme.md file in this repo or create an `.eleventyignore` file with the cont`ents `readme.md`. Here's the [documentation](https://www.11ty.dev/docs/ignores/) for Eleventy ignore files.
+Since 11ty converts Markdown files to HTML we need to either delete the readme.md file in this repo or create an `.eleventyignore` file with the contents `readme.md`. Here's the [documentation](https://www.11ty.dev/docs/ignores/) for Eleventy ignore files.
 
 ### Eleventy Configuration
 
