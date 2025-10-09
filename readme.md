@@ -31,7 +31,6 @@
     - [Second Deploy](#second-deploy)
   - [Notes](#notes)
 
-
 ## Homework
 
 Create a blog folder and display the blog posts on the home page.
@@ -75,7 +74,7 @@ As we just learned, JAMstack sites use pre-rendering tools that use a build proc
 
 [Eleventy](https://www.11ty.io/) (aka 11ty) is a simple [static site generator](https://jamstack.org/generators/) (SSG). SSG websites are very popular due to their simplicity, superior speed, SEO and security.
 
-The benefits of 11ty over other completing generators include the fact that it is written in JavaScript (Node) and its simplicity. 
+The benefits of 11ty over other completing generators include the fact that it is written in JavaScript (Node) and its simplicity.
 
 ### Initial Setup
 
@@ -100,18 +99,7 @@ Add a script to `package.json`:
 },
 ```
 
-Note the `.prettierignore`:
-
-```
-# Ignore artifacts:
-build
-coverage
-
-# Ignore all readme files:
-readme.md
-```
-
-Since 11ty converts Markdown files to HTML we need to either delete the readme.md file in this repo or create an `.eleventyignore` file with the contents `readme.md`. Here's the [documentation](https://www.11ty.dev/docs/ignores/) for Eleventy ignore files.
+Since 11ty converts Markdown files to HTML we need to either delete the readme.md file in this repo or create an `.eleventyignore` file with the cont`ents `readme.md`. Here's the [documentation](https://www.11ty.dev/docs/ignores/) for Eleventy ignore files.
 
 ### Eleventy Configuration
 
@@ -358,7 +346,6 @@ And `pictures.md`:
 ---
 pageTitle: Photos
 navTitle: Pictures
-
 ---
 
 ## Markdown, single image:
@@ -480,15 +467,16 @@ pageClass: pictures
 
 ```html
 <body class="p-{{ pageClass }}">
-    <nav>
-      <ul>
-        {% for page in collections.page %}
-        <li class="t-{{page.data.pageClass}}">
-          <a href="{{ page.url | url }}">{{ page.data.navTitle }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </nav>
+  <nav>
+    <ul>
+      {% for page in collections.page %}
+      <li class="t-{{page.data.pageClass}}">
+        <a href="{{ page.url | url }}">{{ page.data.navTitle }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</body>
 ```
 
 Add a `pageClass` entry to the front matter of all the files in the `pages` directory.
@@ -609,7 +597,6 @@ pageClass: about
 - a force in national politics
 
 We are New Yorkers.
-
 ```
 
 Perform the same deletions on all files in `pages`.
@@ -629,6 +616,7 @@ navTitle: Home
 ## Articles
 
 {% for page in collections.page %}
+
   <h2><a href="{{ page.url }}">{{ page.data.pageTitle }}</a></h2>
   <em>{{ page.date | date: "%Y-%m-%d" }}</em>
 {% endfor %}
@@ -653,7 +641,7 @@ Sign into Netlify and create a new site from Git. Check the settings to ensure t
 
 Examine the deploy logs. Note that Netlify will download and install 11ty in order to generate your `_site` folder and deploy that folder to a web server.
 
-## Fetch 
+## Fetch
 
 Fetch allows you to get data from your own or another's service. Web services expose data in the form of an API which allow you to get, delete, update or create data via [routes](http://jsonplaceholder.typicode.com/).
 
@@ -717,7 +705,7 @@ The format is json - [JavaScript Object Notation](https://developer.mozilla.org/
 `fetch` is a built in browser function that returns a promise:
 
 ```js
-fetch('https://jsonplaceholder.typicode.com/posts')
+fetch("https://jsonplaceholder.typicode.com/posts");
 ```
 
 A resolved promise using `.then`:
@@ -727,10 +715,9 @@ fetch('https://jsonplaceholder.typicode.com/posts').then(response => response.js
 ``` -->
 
 ```js
-fetch('https://jsonplaceholder.typicode.com/posts')
-.then(function(response){
-  return response.json()
-})
+fetch("https://jsonplaceholder.typicode.com/posts").then(function (response) {
+  return response.json();
+});
 ```
 
 Since the promise is resolved you can see the actual data in the console. It returns an array of 100 fake posts which we can console.log:
@@ -742,15 +729,13 @@ fetch('https://jsonplaceholder.typicode.com/posts/')
 ``` -->
 
 ```js
-fetch('https://jsonplaceholder.typicode.com/posts')
-.then(
-  function(response){
-  return response.json()
-})
-.then(
-  function(data){
-  console.log(data)
-});
+fetch("https://jsonplaceholder.typicode.com/posts")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  });
 ```
 
 <!-- ```js
@@ -758,8 +743,6 @@ fetch('https://jsonplaceholder.typicode.com/posts/')
   .then(response => response.json())
   .then(data => console.log( data.map( item => `<h2>${item.title}</h2>` )))
 ``` -->
-
-
 
 Let's start out our script with event delegation.
 
@@ -821,7 +804,7 @@ Note:
 
 Try:
 
-`document.querySelector(".stories").innerText = data;` 
+`document.querySelector(".stories").innerText = data;`
 
 ## Arrow Functions
 
@@ -838,15 +821,13 @@ function exclaim(string) {
 Anonymous functions do not have a name:
 
 ```js
-fetch('https://jsonplaceholder.typicode.com/posts')
-.then(
-  function(response){
-  return response.json()
-})
-.then(
-  function(data){
-  console.log(data)
-});
+fetch("https://jsonplaceholder.typicode.com/posts")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    console.log(data);
+  });
 ```
 
 The equivalent arrow function omits the function keyword and uses a "fat arrow":
@@ -861,14 +842,14 @@ becomes:
 
 ```js
 (response) => {
-  return response.json()
-}
+  return response.json();
+};
 ```
 
 Arrow functions have an "implicit" return and can be written using an even shorter form:
 
 ```js
-(response) => response.json()
+(response) => response.json();
 ```
 
 The parentheses are optional.
@@ -885,12 +866,12 @@ instead of:
 
 ```js
 fetch("https://jsonplaceholder.typicode.com/posts")
-  .then(function(response) { 
-    return response.json()}
-    )
-  .then(function(data) { 
-    return showData(data)}
-    );
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    return showData(data);
+  });
 ```
 
 ---
@@ -931,9 +912,9 @@ function showData(data) {
 Use template strings and the `+=` operator to construct HTML for a better display:
 
 ```js
-  for (let i = 0; i < data.length; i++) {
-    content += `<h3>${data[i].title}</h3>`;
-  }
+for (let i = 0; i < data.length; i++) {
+  content += `<h3>${data[i].title}</h3>`;
+}
 ```
 
 Use `innerHTML`: `document.querySelector(".stories").innerHTML = content;`
@@ -949,9 +930,9 @@ for (let i = 0; i < data.length; i++) {
 Many prefer usings a `for of` style loop:
 
 ```js
-  for (let post of data) {
-    content += `<h3>${post.title}</h3><p>${post.body}</p>`; // new
-  }
+for (let post of data) {
+  content += `<h3>${post.title}</h3><p>${post.body}</p>`; // new
+}
 ```
 
 With array.map():
@@ -966,7 +947,7 @@ function showData(data) {
 
 ## Array Methods
 
-[Array Methods Notes](https://github.com/front-end-intermediate/1-DOM-scripting/tree/main?tab=readme-ov-file#array-methods) 
+[Array Methods Notes](https://github.com/front-end-intermediate/1-DOM-scripting/tree/main?tab=readme-ov-file#array-methods)
 
 ## New York Times API
 
@@ -1203,7 +1184,7 @@ if (document.querySelector(".home")) {
 
 ## Local JSON Server
 
-`cd` into the `db` folder in a separate terminal. 
+`cd` into the `db` folder in a separate terminal.
 
 Run `$ npm install`
 
@@ -1211,10 +1192,8 @@ Examine the `package.json` file.
 
 Use `$ npm run start` the db directory to start a server.
 
-
 ### Second Deploy
 
 Commit, merge and push the content to Github. Log in to [app.netlify.com](https://app.netlify.com) and ensure that the deploy has succeeded.
 
 ## Notes
-
