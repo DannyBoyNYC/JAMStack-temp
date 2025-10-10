@@ -1,0 +1,22 @@
+{
+  "name": "jamstack-temp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DannyBoyNYC/JAMStack-temp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DannyBoyNYC/JAMStack-temp/issues"
+  },
+  "homepage": "https://github.com/DannyBoyNYC/JAMStack-temp#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
