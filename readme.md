@@ -1,5 +1,7 @@
 # The JAMStack, AJAX and Static Site Generation
 
+CG4y4h8YuS0v7C4xERYvlFQPsxpVuA1q
+
 - [The JAMStack, AJAX and Static Site Generation](#the-jamstack-ajax-and-static-site-generation)
   - [Homework](#homework)
   - [Reading](#reading)
