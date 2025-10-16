@@ -1,6 +1,6 @@
 ---
 layout: layout.html
-pageTitle: Post One
+pageTitle: Post Two
 tags: post
 ---
 
